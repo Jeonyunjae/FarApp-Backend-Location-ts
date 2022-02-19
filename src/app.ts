@@ -1,15 +1,19 @@
-const locationRoutes = require('./route/routes');
-const express = require('express');
+import express, { Application } from "express";
+import { dbConnect } from "./db";
+import indexRoutes from "./route/routes";
 
-const app = express();
+const app: Application = express();
 const port = 3000;
 
-app.get("/", (req:any, res:any) => {
-  res.send("Hello World!");
-});
+// DB connect
+//dbConnect();
 
-app.use("/api/v1/location", locationRoutes);
+// middlewares
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
+// Routes
+app.use(indexRoutes);
 app.listen(port, () =>
   console.log(`🚀Server is running on http://localhost:${port} ✅`)
 );
